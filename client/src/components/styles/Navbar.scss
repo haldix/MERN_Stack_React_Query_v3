@@ -1,0 +1,28 @@
+.navbar {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-around;
+
+  .logo {
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 25%;
+  }
+
+  ul {
+    width: 75%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .active {
+    font-weight: bold;
+  }
+}

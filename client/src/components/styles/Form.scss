@@ -1,0 +1,27 @@
+.guest-form {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border: 2px solid gray;
+  border-radius: 3px;
+  background-color: rgb(223, 223, 223);
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.4);
+
+  .input-group {
+    margin-bottom: 0.9rem;
+  }
+
+  label {
+    display: block;
+  }
+
+  input {
+    width: 100%;
+    border: 2px solid #333;
+    padding: 0.2em;
+    &[type='submit'] {
+      color: #fff;
+      background-color: rgb(61, 61, 255);
+    }
+  }
+}
