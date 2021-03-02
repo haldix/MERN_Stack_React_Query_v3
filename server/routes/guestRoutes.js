@@ -17,7 +17,21 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Create new gues
+// Get guest by id
+router.get('/:id', async (req, res) => {
+  try {
+    const guest = await Guest.findById(req.params.id);
+    if (!guest) {
+      return res.status(404).json({ message: 'Guest not found.' });
+    }
+
+    res.json(guest);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+// Create new guest
 router.post('/', async (req, res) => {
   try {
     const guestData = req.body;
@@ -34,8 +48,11 @@ router.post('/', async (req, res) => {
 
 // Update guest profile
 router.put('/:id', async (req, res) => {
+  console.log('Put HIT ROUTE', req.params.id);
+
   try {
     const guest = await Guest.findById(req.params.id);
+
     if (!guest) {
       return res.status(404).json({ message: 'Guest not found.' });
     }
@@ -45,7 +62,7 @@ router.put('/:id', async (req, res) => {
     guest.occupation = req.body.occupation || guest.occupation;
 
     const updatedGuest = await guest.save();
-    res.json(updatedGuest);
+    res.status(201).json(updatedGuest);
   } catch (error) {
     console.error(error);
   }

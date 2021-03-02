@@ -1,9 +1,10 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import { getData } from '../api';
+import { getAllData } from '../api';
+import Guest from '../components/Guest';
 
 const GuestList = () => {
-  const { data, isLoading, isError, error } = useQuery('guests', getData);
+  const { data, isLoading, isError, error } = useQuery('guests', getAllData);
 
   if (isError) {
     return <div>Error: {error.message}</div>;
@@ -14,9 +15,11 @@ const GuestList = () => {
   return (
     <div>
       <h1>Guest List</h1>
-      {data.map((guest) => (
-        <li key={guest._id}>{guest.name}</li>
-      ))}
+      <ul>
+        {data.map((guest) => (
+          <Guest key={guest._id} guest={guest} />
+        ))}
+      </ul>
     </div>
   );
 };
