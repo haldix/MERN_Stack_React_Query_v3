@@ -7,7 +7,7 @@ import Form from '../components/Form';
 const UpdateGuest = () => {
   const history = useHistory();
 
-  // Get guest data by id to set as init val in form
+  // get existing guest data by id to set as init val in form
   const { id } = useParams();
 
   const { data: userData, error, isLoading, isError } = useQuery(

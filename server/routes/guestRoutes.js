@@ -71,13 +71,16 @@ router.put('/:id', async (req, res) => {
 // Delete guest
 router.delete('/:id', async (req, res) => {
   try {
-    const guest = Guest.findById(rea.params.id);
-    if (!guest) {
-      return res.status(404).json({ message: 'Guest not found.' });
-    }
-    await guest.remove();
+    await Guest.findByIdAndDelete(req.params.id);
+    // if (!guest) {
+    //   return res.status(404).json({ message: 'Guest not found.' });
+    // }
+    // await guest.remove();
     res.json({ messge: 'Guest deleted.' });
-  } catch (error) {}
+  } catch (error) {
+    res.status(404).json({ message: 'Guest not found.' });
+    console.log(error);
+  }
 });
 
 module.exports = router;
