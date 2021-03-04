@@ -1,94 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { getOneData, updateData } from '../api';
 import { useQuery, useMutation } from 'react-query';
-
-const initData = { name: '', email: '', city: '', occupation: '' };
+import Form from '../components/Form';
 
 const UpdateGuest = () => {
-  const [formData, setFormData] = useState(initData);
   const history = useHistory();
+
+  // Get guest data by id to set as init val in form
   const { id } = useParams();
 
-  const { data, error, isLoading, isError } = useQuery(
+  const { data: userData, error, isLoading, isError } = useQuery(
     ['guest', { id }],
     getOneData,
     { onSucces: console.log('Success') }
   );
 
-  useEffect(() => {
-    data && setFormData(data);
-  }, [data]);
+  // pass mutation logic to form
+  const {
+    mutateAsync,
+    isLoading: isMutLoading,
+    isError: isMutError,
+  } = useMutation(updateData);
 
-  const { mutateAsync, isLoading: isMutating } = useMutation(updateData);
-
-  const handleChange = (e) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await mutateAsync({ ...formData, id });
-    setFormData(initData);
+  const submitFn = async (data) => {
+    await mutateAsync({ ...data, id });
     history.push('/');
   };
-  if (isError) {
-    return <div>Error</div>;
+
+  if (isError || isMutError) {
+    return <div>Error: {error?.message}</div>;
   }
-  if (isLoading) {
+  if (isLoading || isMutLoading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <form className='guest-form' onSubmit={handleSubmit}>
-      <div className='input-group'>
-        <label htmlFor='name'>Name</label>
-        <input
-          type='text'
-          id='name'
-          name='name'
-          onChange={handleChange}
-          value={formData.name}
-        />
-      </div>
-      <div className='input-group'>
-        <label htmlFor='email'>Email</label>
-        <input
-          type='email'
-          id='email'
-          name='email'
-          onChange={handleChange}
-          value={formData.email}
-        />
-      </div>
-      <div className='input-group'>
-        <label htmlFor='city'>City</label>
-        <input
-          type='text'
-          id='city'
-          name='city'
-          onChange={handleChange}
-          value={formData.city}
-        />
-      </div>
-      <div className='input-group'>
-        <label htmlFor='occupation'>Occupation</label>
-        <input
-          type='text'
-          id='occupation'
-          name='occupation'
-          onChange={handleChange}
-          value={formData.occupation}
-        />
-      </div>
-      <div className='input-group'>
-        <input type='submit' value='Submit' />
-      </div>
-      <p>{data.name}</p>
-    </form>
+    <>
+      <h1>Update Guest</h1>
+      <Form initData={userData} submitFn={submitFn} />
+    </>
   );
 };
 

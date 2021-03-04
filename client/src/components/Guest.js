@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './styles/Guest.scss';
 
-const Guest = ({ guest }) => {
+const Guest = ({ guest, i }) => {
   return (
     <div className='guest'>
-      <img src='https://i.pravatar.cc/300' alt={guest.name} />
+      <img src={`https://i.pravatar.cc/300?img=${i}`} alt={guest.name} />
       <div className='guest-info'>
         <p className='guest-name'>{guest.name}</p>
         <p className='guest-occupation'>{guest.occupation}</p>

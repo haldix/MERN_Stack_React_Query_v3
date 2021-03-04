@@ -1,26 +1,12 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { postData } from '../api';
-import { useMutation } from 'react-query';
+import React from 'react';
+
 import './styles/Form.scss';
+import useForm from '../hooks/useForm';
 
-const initData = { name: '', email: '', city: '', occupation: '' };
+const defData = { name: '', email: '', city: '', occupation: '' };
 
-const Form = () => {
-  const [data, setData] = useState(initData);
-  const history = useHistory();
-  const mutation = useMutation((formData) => postData(formData));
-
-  const handleChange = (e) => {
-    setData((prevData) => ({ ...prevData, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    mutation.mutateAsync(data);
-    setData(initData);
-    history.push('/');
-  };
+const Form = ({ initData = defData, submitFn }) => {
+  const { data, handleSubmit, handleChange } = useForm(initData, submitFn);
 
   return (
     <form className='guest-form' onSubmit={handleSubmit}>

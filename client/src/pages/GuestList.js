@@ -16,8 +16,8 @@ const GuestList = () => {
     <div>
       <h1>Guest List</h1>
       <ul>
-        {data.map((guest) => (
-          <Guest key={guest._id} guest={guest} />
+        {data.map((guest, i) => (
+          <Guest key={guest._id} guest={guest} i={i} />
         ))}
       </ul>
     </div>
