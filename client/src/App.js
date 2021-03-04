@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import GuestList from './pages/GuestList';
 import CreateGuest from './pages/CreateGuest';
 import UpdateGuest from './pages/UpdateGuest';
@@ -17,6 +18,7 @@ function App() {
           <Route exact path='/update/:id' component={UpdateGuest} />
         </Switch>
       </Router>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }

@@ -16,7 +16,7 @@ const UpdateGuest = () => {
     { onSucces: console.log('Success') }
   );
 
-  // pass mutation logic to form
+  // mutation logic to be passed to form
   const {
     mutateAsync,
     isLoading: isMutLoading,

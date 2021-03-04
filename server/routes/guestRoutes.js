@@ -11,7 +11,8 @@ router.get('/', async (req, res) => {
     if (!guests) {
       return res.json({ message: 'No guests found.' });
     }
-    res.json(guests);
+    setTimeout(() => res.json(guests), 3000);
+    //res.json(guests);
   } catch (error) {
     console.error(error);
   }
@@ -72,10 +73,6 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     await Guest.findByIdAndDelete(req.params.id);
-    // if (!guest) {
-    //   return res.status(404).json({ message: 'Guest not found.' });
-    // }
-    // await guest.remove();
     res.json({ messge: 'Guest deleted.' });
   } catch (error) {
     res.status(404).json({ message: 'Guest not found.' });
