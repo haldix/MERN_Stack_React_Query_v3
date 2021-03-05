@@ -3,6 +3,7 @@ const express = require('express');
 const Guest = require('../models/guestModel');
 
 const router = express.Router();
+const DELAY = 1000;
 
 // Get all guests
 router.get('/', async (req, res) => {
@@ -11,8 +12,8 @@ router.get('/', async (req, res) => {
     if (!guests) {
       return res.json({ message: 'No guests found.' });
     }
-    setTimeout(() => res.json(guests), 3000);
-    //res.json(guests);
+    // setTimeout(() => res.json(guests), DELAY);
+    res.json(guests);
   } catch (error) {
     console.error(error);
   }
@@ -73,7 +74,8 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     await Guest.findByIdAndDelete(req.params.id);
-    res.json({ messge: 'Guest deleted.' });
+    setTimeout(() => res.json({ messge: 'Guest deleted.' }), DELAY);
+    // res.json({ messge: 'Guest deleted.' });
   } catch (error) {
     res.status(404).json({ message: 'Guest not found.' });
     console.log(error);

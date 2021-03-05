@@ -7,18 +7,22 @@ import { useMutation } from 'react-query';
 const initData = { name: '', email: '', city: '', occupation: '' };
 
 const CreateGuest = () => {
-  const mutation = useMutation((formData) => postData(formData));
+  const { mutateAsync, isLoading } = useMutation((formData) =>
+    postData(formData)
+  );
+
   const history = useHistory();
 
   const submitFn = async (data) => {
-    await mutation.mutateAsync(data);
+    await mutateAsync(data);
     history.push('/');
   };
+
   return (
     <div>
       <>
         <h1>Create New Guest</h1>
-        <Form initData={initData} submitFn={submitFn} />
+        <Form initData={initData} submitFn={submitFn} isLoading={isLoading} />
       </>
     </div>
   );

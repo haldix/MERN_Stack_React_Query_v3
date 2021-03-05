@@ -4,7 +4,7 @@ import { deleteData } from '../api';
 const useDelete = () => {
   const queryClient = useQueryClient();
 
-  const { mutateAsync, isError, error } = useMutation(deleteData, {
+  const { mutateAsync, isError, error, isLoading } = useMutation(deleteData, {
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries('guests');
@@ -15,7 +15,7 @@ const useDelete = () => {
     await mutateAsync(e.target.id);
   };
 
-  return { handleDelete, isError, error };
+  return { handleDelete, isError, error, isLoading };
 };
 
 export default useDelete;

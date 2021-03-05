@@ -5,7 +5,7 @@ import useForm from '../hooks/useForm';
 
 const defData = { name: '', email: '', city: '', occupation: '' };
 
-const Form = ({ initData = defData, submitFn }) => {
+const Form = ({ initData = defData, submitFn, isLoading }) => {
   const { data, handleSubmit, handleChange } = useForm(initData, submitFn);
 
   return (
@@ -51,7 +51,7 @@ const Form = ({ initData = defData, submitFn }) => {
         />
       </div>
       <div className='input-group'>
-        <input type='submit' value='Submit' />
+        <input type='submit' value='Submit' disabled={isLoading} />
       </div>
     </form>
   );

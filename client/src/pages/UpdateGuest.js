@@ -17,28 +17,24 @@ const UpdateGuest = () => {
   );
 
   // mutation logic to be passed to form
-  const {
-    mutateAsync,
-    isLoading: isMutLoading,
-    isError: isMutError,
-  } = useMutation(updateData);
+  const { mutateAsync, isLoading: isMutLoading } = useMutation(updateData);
 
   const submitFn = async (data) => {
     await mutateAsync({ ...data, id });
     history.push('/');
   };
 
-  if (isError || isMutError) {
+  if (isError) {
     return <div>Error: {error?.message}</div>;
   }
-  if (isLoading || isMutLoading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
   return (
     <>
       <h1>Update Guest</h1>
-      <Form initData={userData} submitFn={submitFn} />
+      <Form initData={userData} submitFn={submitFn} isLoading={isMutLoading} />
     </>
   );
 };
