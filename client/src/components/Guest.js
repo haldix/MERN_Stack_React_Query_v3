@@ -10,17 +10,17 @@ const Guest = ({ guest, i }) => {
   return (
     <div className='guest'>
       <img src={`https://i.pravatar.cc/300?img=${random()}`} alt={guest.name} />
-      <div className='guest-info'>
-        <p className='guest-name'>{guest.name}</p>
-        <p className='guest-email'>{guest.email}</p>
-        <p className='guest-occupation'>{guest.occupation}</p>
-        <p className='guest-city'>{guest.city}</p>
-        <div className='edit-cont'>
-          <Link to={`/update/${guest._id}`}>Update</Link>
-          <button id={guest._id} onClick={handleDelete}>
-            {isLoading ? 'Deleteing Guest...' : 'Remove Guest'}
-          </button>
-        </div>
+      <ul className='guest-info'>
+        <li className='guest-name'>{guest.name}</li>
+        <li className='guest-email'>{guest.email}</li>
+        <li className='guest-occupation'>{guest.occupation}</li>
+        <li className='guest-city'>{guest.city}</li>
+      </ul>
+      <div className='edit-cont'>
+        <Link to={`/update/${guest._id}`}>Update</Link>
+        <button id={guest._id} onClick={handleDelete}>
+          {isLoading ? 'Deleteing...' : 'Remove'}
+        </button>
       </div>
     </div>
   );

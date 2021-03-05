@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { getAllData } from '../api';
 import Guest from '../components/Guest';
+import './styles/GuestList.scss';
 
 const GuestList = () => {
   const { data, isLoading, isError, error, isFetching } = useQuery(
@@ -21,10 +22,10 @@ const GuestList = () => {
   }
 
   return (
-    <div>
+    <div className='guest-list'>
       <h1>Guest List</h1>
       {isFetching && <h2>Fetching...</h2>}
-      <ul>
+      <ul className='list-grid'>
         {data.map((guest, i) => (
           <Guest key={guest._id} guest={guest} i={i} />
         ))}

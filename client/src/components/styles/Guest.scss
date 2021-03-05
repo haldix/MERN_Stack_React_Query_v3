@@ -1,0 +1,58 @@
+.guest {
+  background-color: rgb(231, 230, 230);
+  margin-bottom: 2rem;
+  width: 200px;
+  border: 1px solid gray;
+  box-shadow: 0px 2px 3px rgba(black, 0.3);
+  overflow: hidden;
+  border-radius: 3px;
+
+  img {
+    width: 100%;
+    height: 200px;
+  }
+  ul {
+    margin: 0;
+    padding: 0.7rem;
+    list-style: none;
+  }
+
+  li {
+    text-align: center;
+
+    &:first-of-type {
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+
+  .edit-cont {
+    padding: 0.5rem;
+    margin-bottom: 0.6rem;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  button {
+    cursor: pointer;
+  }
+  a {
+    text-decoration: none;
+    border-radius: 0.2em;
+    padding: 0.3em;
+  }
+
+  button,
+  a {
+    color: darkred;
+    background-color: rgb(154, 212, 231);
+    border-radius: 0.2em;
+    border: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    &:hover {
+      background-color: rgb(77, 193, 231);
+    }
+  }
+}

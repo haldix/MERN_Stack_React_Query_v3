@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import './styles/Navbar.scss'
+import './styles/Navbar.scss';
 
 const Navbar = () => {
   return (
@@ -15,11 +15,6 @@ const Navbar = () => {
         <li>
           <NavLink exact to='/create' activeClassName='active'>
             Add New Guest
-          </NavLink>
-        </li>
-        <li>
-          <NavLink exact to='/update' activeClassName='active'>
-            Update Guest Profile
           </NavLink>
         </li>
       </ul>
