@@ -1,4 +1,5 @@
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const connectDB = require('./config/db.js');
@@ -15,6 +16,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(express.json());
+app.use(fileUpload());
 
 app.use('/api/guests', guestRouter);
 
