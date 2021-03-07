@@ -25,13 +25,16 @@ const Guest = ({ guest }) => {
           <li className='guest-occupation'>{guest.occupation}</li>
           <li className='guest-city'>{guest.city}</li>
         </ul>
-        <div className='edit-cont'>
-          <button onClick={toggleModal}>Edit Photo</button>
-          <Link to={`/update/${guest._id}`}>Update</Link>
-          <button id={guest._id} onClick={handleDelete}>
-            {isLoading ? 'Deleteing...' : 'Remove'}
-          </button>
-        </div>
+        <details>
+          <summary>Edit Profile</summary>
+          <div className='edit-btns-cont'>
+            <Link to={`/update/${guest._id}`}>Update Data</Link>
+            <button onClick={toggleModal}>Edit Photo</button>
+            <button id={guest._id} onClick={handleDelete}>
+              {isLoading ? 'Deleteing...' : 'Remove Guest'}
+            </button>
+          </div>
+        </details>
       </div>
       <PhotoModal isOpen={isOpen} toggleModal={toggleModal} id={guest._id} />
     </>

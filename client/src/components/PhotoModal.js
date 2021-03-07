@@ -12,7 +12,6 @@ const PhotoModal = ({ isOpen, toggleModal, id }) => {
       contentLabel='Edit Photo Modal'
       closeTimeoutMS={500}
     >
-      <h2>Upload modal</h2>
       <FileUpload id={id} />
     </Modal>
   );

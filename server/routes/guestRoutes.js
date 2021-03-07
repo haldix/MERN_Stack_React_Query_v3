@@ -85,7 +85,7 @@ router.delete('/:id', async (req, res) => {
 
 // Upload guest photo
 router.post('/upload', (req, res) => {
-  console.log('REQ FILES', req.files);
+  console.log('REQ UPLOAD FILES', req.files);
 
   if (!req.files) {
     return res.status(400).json({ msg: 'No file uploaded.' });

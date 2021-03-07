@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation } from 'react-query';
 import { uploadPhoto, updateData } from '../api';
+import './styles/FileUpload.scss';
 
 const FileUpload = ({ id }) => {
   const [file, setFile] = useState('');
@@ -49,17 +50,14 @@ const FileUpload = ({ id }) => {
   }, [uploadedFile, mutateUpdate, id]);
 
   return (
-    <>
+    <div className='file-upload'>
       <form onSubmit={onSubmit}>
-        <div className='custom-file mb-4'>
-          <input
-            type='file'
-            className='custom-file-input'
-            id='customFile'
-            onChange={onChange}
-          />
-        </div>
-
+        <input
+          type='file'
+          className='custom-file-input'
+          id='customFile'
+          onChange={onChange}
+        />
         <input
           type='submit'
           value='Upload'
@@ -67,18 +65,16 @@ const FileUpload = ({ id }) => {
         />
       </form>
       {file ? (
-        <div className='row mt-5'>
-          <div className='col-md-6 m-auto'>
-            {<h3 className='text-center'>{uploadedFile.fileName}</h3>}
-            <img
-              style={{ width: '100%' }}
-              src={URL.createObjectURL(file)}
-              alt=''
-            />
-          </div>
+        <div className='img-preview-cont'>
+          {<h3 className='image-title'>{file.name}</h3>}
+          <img
+            className='image-preview'
+            src={URL.createObjectURL(file)}
+            alt={file.name}
+          />
         </div>
       ) : null}
-    </>
+    </div>
   );
 };
 

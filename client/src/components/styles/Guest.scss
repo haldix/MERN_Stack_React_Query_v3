@@ -13,7 +13,7 @@
     object-fit: cover;
   }
 
-  ul {
+  .guest-info {
     margin: 0;
     padding: 0.7rem;
     list-style: none;
@@ -28,11 +28,33 @@
     }
   }
 
-  .edit-cont {
-    padding: 0.5rem;
-    margin-bottom: 0.6rem;
+  details {
+    padding: 0.7rem;
+  }
+
+  .edit-btns-cont {
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
+  }
+
+  button,
+  a {
+    display: block;
+    color: darkred;
+    background-color: rgb(154, 212, 231);
+    border-radius: 0.2em;
+    border: 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 0.3em;
+    margin-top: 0.3rem;
+
+    &:hover {
+      background-color: rgb(77, 193, 231);
+    }
   }
 
   button {
@@ -42,20 +64,5 @@
   a {
     text-decoration: none;
     border-radius: 0.2em;
-    padding: 0.3em;
-  }
-
-  button,
-  a {
-    color: darkred;
-    background-color: rgb(154, 212, 231);
-    border-radius: 0.2em;
-    border: 0;
-    text-transform: uppercase;
-    font-weight: bold;
-
-    &:hover {
-      background-color: rgb(77, 193, 231);
-    }
   }
 }
