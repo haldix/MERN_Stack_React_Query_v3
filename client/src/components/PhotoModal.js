@@ -4,7 +4,7 @@ import FileUpload from './FileUpload';
 
 Modal.setAppElement('#root');
 
-const PhotoModal = ({ isOpen, toggleModal }) => {
+const PhotoModal = ({ isOpen, toggleModal, id }) => {
   return (
     <Modal
       isOpen={isOpen}
@@ -13,7 +13,7 @@ const PhotoModal = ({ isOpen, toggleModal }) => {
       closeTimeoutMS={500}
     >
       <h2>Upload modal</h2>
-      <FileUpload />
+      <FileUpload id={id} />
     </Modal>
   );
 };

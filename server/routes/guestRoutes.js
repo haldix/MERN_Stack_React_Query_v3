@@ -62,6 +62,7 @@ router.put('/:id', async (req, res) => {
     guest.email = req.body.email || guest.email;
     guest.city = req.body.city || guest.city;
     guest.occupation = req.body.occupation || guest.occupation;
+    guest.photo_url = req.body.photo_url || guest.photo_url;
 
     const updatedGuest = await guest.save();
     res.status(201).json(updatedGuest);
@@ -82,6 +83,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// Upload guest photo
 router.post('/upload', (req, res) => {
   console.log('REQ FILES', req.files);
 

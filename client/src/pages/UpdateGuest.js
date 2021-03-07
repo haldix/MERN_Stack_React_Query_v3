@@ -13,7 +13,7 @@ const UpdateGuest = () => {
   const { data: userData, error, isLoading, isError } = useQuery(
     ['guest', { id }],
     getOneData,
-    { onSucces: console.log('Success') }
+    { onSucces: console.log('Success updating guest') }
   );
 
   // mutation logic to be passed to form

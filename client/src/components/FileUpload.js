@@ -1,34 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useMutation } from 'react-query';
+import { uploadPhoto, updateData } from '../api';
 
-const FileUpload = () => {
+const FileUpload = ({ id }) => {
   const [file, setFile] = useState('');
-  const [filename, setFilename] = useState('Choose File');
   const [uploadedFile, setUploadedFile] = useState({});
+
+  const { mutateAsync, isLoading, data, isSuccess } = useMutation((formData) =>
+    uploadPhoto(formData)
+  );
+
+  const {
+    mutateAsync: mutateUpdate,
+    isError: isUpdateError,
+    error: updateError,
+  } = useMutation(updateData);
 
   const onChange = (e) => {
     setFile(e.target.files[0]);
-    setFilename(e.target.files[0].name);
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const fd = new FormData();
     fd.append('file', file);
-    console.log(Array.from(fd));
+    // console.log(Array.from(fd));
 
     try {
-      const res = await fetch('/api/guests/upload', {
-        method: 'POST',
-        body: fd,
+      await mutateAsync(fd, {
+        onSuccess: console.log('Success Photo Upload', data),
       });
-      const data = await res.json();
-      const { fileName, filePath } = data;
-
-      setUploadedFile({ fileName, filePath });
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (data) {
+      const { fileName, filePath } = data;
+      setUploadedFile({ fileName, filePath });
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (uploadedFile) {
+      mutateUpdate({ id, photo_url: uploadedFile.filePath });
+    }
+  }, [uploadedFile, mutateUpdate, id]);
 
   return (
     <>
@@ -40,9 +58,6 @@ const FileUpload = () => {
             id='customFile'
             onChange={onChange}
           />
-          <label className='custom-file-label' htmlFor='customFile'>
-            {filename}
-          </label>
         </div>
 
         <input
@@ -51,11 +66,15 @@ const FileUpload = () => {
           className='btn btn-primary btn-block mt-4'
         />
       </form>
-      {uploadedFile ? (
+      {file ? (
         <div className='row mt-5'>
           <div className='col-md-6 m-auto'>
-            <h3 className='text-center'>{uploadedFile.fileName}</h3>
-            <img style={{ width: '100%' }} src={uploadedFile.filePath} alt='' />
+            {<h3 className='text-center'>{uploadedFile.fileName}</h3>}
+            <img
+              style={{ width: '100%' }}
+              src={URL.createObjectURL(file)}
+              alt=''
+            />
           </div>
         </div>
       ) : null}

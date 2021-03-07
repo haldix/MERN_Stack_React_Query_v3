@@ -1,16 +1,18 @@
 .guest {
   background-color: rgb(231, 230, 230);
-  margin-bottom: 2rem;
   width: 200px;
   border: 1px solid gray;
   box-shadow: 0px 2px 3px rgba(black, 0.3);
   overflow: hidden;
   border-radius: 3px;
 
-  img {
-    width: 100%;
+  .guest-img {
+    display: block;
+    width: 200px;
     height: 200px;
+    object-fit: cover;
   }
+
   ul {
     margin: 0;
     padding: 0.7rem;
@@ -36,6 +38,7 @@
   button {
     cursor: pointer;
   }
+
   a {
     text-decoration: none;
     border-radius: 0.2em;

@@ -1,5 +1,6 @@
 const url = '/api/guests';
 
+// Get data for all guests
 async function getAllData() {
   const res = await fetch(url);
   if (!res.ok) {
@@ -8,6 +9,7 @@ async function getAllData() {
   return res.json();
 }
 
+// Get data for one guest
 async function getOneData({ queryKey }) {
   /* eslint-disable no-unused-vars */
   const [_key, { id }] = queryKey;
@@ -19,6 +21,7 @@ async function getOneData({ queryKey }) {
   return res.json();
 }
 
+// Post data for one guest
 async function postData(data) {
   const res = await fetch(url, {
     method: 'POST',
@@ -33,6 +36,7 @@ async function postData(data) {
   return res.json();
 }
 
+// Delete guest
 async function deleteData(id) {
   const res = await fetch(`${url}/${id}`, {
     method: 'DELETE',
@@ -44,6 +48,7 @@ async function deleteData(id) {
   return res.json();
 }
 
+// Update one guest's data
 async function updateData({ id, ...data }) {
   const res = await fetch(`${url}/${id}`, {
     method: 'PUT',
@@ -58,4 +63,26 @@ async function updateData({ id, ...data }) {
   }
   return res.json();
 }
-export { getAllData, getOneData, postData, deleteData, updateData };
+
+// Download guest photo
+async function uploadPhoto(formData) {
+  const res = await fetch('/api/guests/upload', {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!res.ok) {
+    throw new Error('Unable to upload photo.');
+  }
+
+  return res.json();
+}
+
+export {
+  getAllData,
+  getOneData,
+  postData,
+  deleteData,
+  updateData,
+  uploadPhoto,
+};

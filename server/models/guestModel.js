@@ -17,6 +17,9 @@ const guestSchema = new mongoose.Schema(
     occupation: {
       type: String,
     },
+    photo_url: {
+      type: String,
+    },
   },
   {
     timestamps: true,

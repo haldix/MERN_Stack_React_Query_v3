@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import './styles/Guest.scss';
 import useDelete from '../hooks/useDelete';
 import PhotoModal from './PhotoModal';
+import noPhoto from '../images/no-image-available.png';
 
-const random = () => Math.floor(Math.random() * 20);
-
-const Guest = ({ guest, i }) => {
+const Guest = ({ guest }) => {
   const { handleDelete, isLoading } = useDelete();
   const [isOpen, setOpen] = useState(false);
 
@@ -16,7 +15,8 @@ const Guest = ({ guest, i }) => {
     <>
       <div className='guest'>
         <img
-          src={`https://i.pravatar.cc/300?img=${random()}`}
+          className='guest-img'
+          src={guest.photo_url || noPhoto}
           alt={guest.name}
         />
         <ul className='guest-info'>
@@ -33,7 +33,7 @@ const Guest = ({ guest, i }) => {
           </button>
         </div>
       </div>
-      <PhotoModal isOpen={isOpen} toggleModal={toggleModal} />
+      <PhotoModal isOpen={isOpen} toggleModal={toggleModal} id={guest._id} />
     </>
   );
 };
