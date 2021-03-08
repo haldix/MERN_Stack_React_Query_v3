@@ -6,7 +6,7 @@ import PhotoModal from './PhotoModal';
 import noPhoto from '../images/no-image-available.png';
 
 const Guest = ({ guest }) => {
-  const { handleDelete, isLoading } = useDelete();
+  const { handleDelete, isLoading, isError, error } = useDelete();
   const [isOpen, setOpen] = useState(false);
 
   const toggleModal = () => setOpen(!isOpen);
@@ -31,6 +31,7 @@ const Guest = ({ guest }) => {
             <Link to={`/update/${guest._id}`}>Edit Data</Link>
             <button onClick={toggleModal}>Update Photo</button>
             <button id={guest._id} onClick={handleDelete}>
+              {isError ? error?.message : null}
               {isLoading ? 'Deleteing...' : 'Delete Guest'}
             </button>
           </div>

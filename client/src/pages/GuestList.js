@@ -1,17 +1,12 @@
 import React from 'react';
-import { useQuery } from 'react-query';
-import { getAllData } from '../api';
+// import { useQuery } from 'react-query';
+// import { getAllData } from '../api';
 import Guest from '../components/Guest';
 import './styles/GuestList.scss';
+import useGuests from '../hooks/useGuests';
 
 const GuestList = () => {
-  const { data, isLoading, isError, error, isFetching } = useQuery(
-    'guests',
-    getAllData,
-    {
-      staleTime: 5000,
-    }
-  );
+  const { isLoading, isError, error, isFetching, data: guests } = useGuests();
 
   if (isLoading) {
     return <h2>Loading Guests...</h2>;
@@ -26,7 +21,7 @@ const GuestList = () => {
       <h1>Guest List</h1>
       {isFetching && <h2>Fetching...</h2>}
       <ul className='list-grid'>
-        {data.map((guest, i) => (
+        {guests.map((guest, i) => (
           <Guest key={guest._id} guest={guest} i={i} />
         ))}
       </ul>

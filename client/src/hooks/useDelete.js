@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { deleteData } from '../api';
 
-const useDelete = () => {
+export default function useDelete() {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isError, error, isLoading } = useMutation(deleteData, {
@@ -16,6 +16,4 @@ const useDelete = () => {
   };
 
   return { handleDelete, isError, error, isLoading };
-};
-
-export default useDelete;
+}
