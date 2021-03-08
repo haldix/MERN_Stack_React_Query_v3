@@ -3,7 +3,7 @@ import { useMutation } from 'react-query';
 import { uploadPhoto, updateData } from '../api';
 import './styles/FileUpload.scss';
 
-const FileUpload = ({ id }) => {
+const FileUpload = ({ id, toggleModal }) => {
   const [file, setFile] = useState('');
   const [uploadedFile, setUploadedFile] = useState({});
 
@@ -51,6 +51,9 @@ const FileUpload = ({ id }) => {
 
   return (
     <div className='file-upload'>
+      <button className='btn-modal-close' onClick={toggleModal}>
+        X
+      </button>
       <form onSubmit={onSubmit}>
         <input
           type='file'
@@ -64,16 +67,21 @@ const FileUpload = ({ id }) => {
           className='btn btn-primary btn-block mt-4'
         />
       </form>
-      {file ? (
-        <div className='img-preview-cont'>
-          {<h3 className='image-title'>{file.name}</h3>}
-          <img
-            className='image-preview'
-            src={URL.createObjectURL(file)}
-            alt={file.name}
-          />
-        </div>
-      ) : null}
+      <div className='image-preview-cont'>
+        {!file && (
+          <span className='image-preview-text'>Preview Selected Image</span>
+        )}
+        {file ? (
+          <>
+            <img
+              className='image-preview'
+              src={URL.createObjectURL(file)}
+              alt={file.name}
+            />
+            <h3 className='image-title'>{file.name}</h3>
+          </>
+        ) : null}
+      </div>
     </div>
   );
 };

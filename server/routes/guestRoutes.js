@@ -26,8 +26,8 @@ router.get('/:id', async (req, res) => {
     if (!guest) {
       return res.status(404).json({ message: 'Guest not found.' });
     }
-
-    res.json(guest);
+    setTimeout(() => res.json(guest), DELAY);
+    // res.json(guest);
   } catch (error) {
     console.error(error);
   }

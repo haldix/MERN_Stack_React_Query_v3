@@ -28,10 +28,10 @@ const Guest = ({ guest }) => {
         <details>
           <summary>Edit Profile</summary>
           <div className='edit-btns-cont'>
-            <Link to={`/update/${guest._id}`}>Update Data</Link>
-            <button onClick={toggleModal}>Edit Photo</button>
+            <Link to={`/update/${guest._id}`}>Edit Data</Link>
+            <button onClick={toggleModal}>Update Photo</button>
             <button id={guest._id} onClick={handleDelete}>
-              {isLoading ? 'Deleteing...' : 'Remove Guest'}
+              {isLoading ? 'Deleteing...' : 'Delete Guest'}
             </button>
           </div>
         </details>

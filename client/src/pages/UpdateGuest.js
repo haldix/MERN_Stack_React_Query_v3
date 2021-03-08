@@ -1,11 +1,12 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { getOneData, updateData } from '../api';
-import { useQuery, useMutation } from 'react-query';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
 import Form from '../components/Form';
 
 const UpdateGuest = () => {
   const history = useHistory();
+  const queryClient = useQueryClient();
 
   // get existing guest data by id to set as init val in form
   const { id } = useParams();
@@ -13,14 +14,27 @@ const UpdateGuest = () => {
   const { data: userData, error, isLoading, isError } = useQuery(
     ['guest', { id }],
     getOneData,
-    { onSucces: console.log('Success updating guest') }
+    {
+      initialData: () => {
+        return queryClient.getQueryData('guests')?.find((d) => d._id === id);
+      },
+      initialStale: true,
+    }
   );
 
   // mutation logic to be passed to form
   const { mutateAsync, isLoading: isMutLoading } = useMutation(updateData);
 
   const submitFn = async (data) => {
-    await mutateAsync({ ...data, id });
+    await mutateAsync(
+      { ...data, id },
+      {
+        onSuccess: (newGuest) => {
+          queryClient.setQueryData(['guests', newGuest._id], newGuest);
+          queryClient.invalidateQueries('guests');
+        },
+      }
+    );
     history.push('/');
   };
 
