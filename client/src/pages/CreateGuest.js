@@ -7,7 +7,7 @@ import { useMutation } from 'react-query';
 const initData = { name: '', email: '', city: '', occupation: '' };
 
 const CreateGuest = () => {
-  const { mutateAsync, isLoading } = useMutation((formData) =>
+  const { mutateAsync, isLoading, isError, error } = useMutation((formData) =>
     postData(formData)
   );
 

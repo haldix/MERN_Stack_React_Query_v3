@@ -19,9 +19,8 @@ export default function useUpdateGuest() {
       },
       {
         onSuccess: (newGuest) => {
-          console.log('newGuest', newGuest);
-          queryClient.setQueryData(['guests', newGuest._id], newGuest);
           queryClient.invalidateQueries('guests');
+          queryClient.setQueryData(['guests', newGuest._id], newGuest);
         },
       }
     );
