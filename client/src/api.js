@@ -64,7 +64,7 @@ async function updateData({ id, ...data }) {
   return res.json();
 }
 
-// Download guest photo
+// upload guest photo
 async function uploadPhoto(formData) {
   const res = await fetch(`${url}/upload`, {
     method: 'POST',

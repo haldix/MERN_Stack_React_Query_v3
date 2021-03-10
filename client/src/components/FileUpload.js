@@ -7,12 +7,17 @@ const FileUpload = ({ id, toggleModal }) => {
   const [file, setFile] = useState('');
   const [uploadedFile, setUploadedFile] = useState({});
 
-  const { mutateAsync, isLoading, data, isSuccess } = useMutation((formData) =>
-    uploadPhoto(formData)
-  );
+  const {
+    mutateAsync,
+    isLoading,
+    data,
+    isError,
+    error,
+  } = useMutation((formData) => uploadPhoto(formData));
 
   const {
     mutateAsync: mutateUpdate,
+    isLoading: isUpdateLoading,
     isError: isUpdateError,
     error: updateError,
   } = useMutation(updateData);
@@ -32,7 +37,7 @@ const FileUpload = ({ id, toggleModal }) => {
         onSuccess: console.log('Success Photo Upload', data),
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -49,6 +54,17 @@ const FileUpload = ({ id, toggleModal }) => {
     }
   }, [uploadedFile, mutateUpdate, id]);
 
+  if (isLoading || isUpdateLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError || isUpdateError) {
+    return (
+      <div>
+        Error: {error?.message} {updateError?.message}
+      </div>
+    );
+  }
   return (
     <div className='file-upload'>
       <button className='btn-modal-close' onClick={toggleModal}>

@@ -1,10 +1,18 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { postData } from '../api';
 import { useHistory } from 'react-router-dom';
 
 export default function useCreateGuest() {
-  const { mutateAsync, isLoading, isError, error } = useMutation((formData) =>
-    postData(formData)
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isLoading, isError, error } = useMutation(
+    (formData) => postData(formData),
+    {
+      onSuccess: () => {
+        // Invalidate and refetch
+        queryClient.invalidateQueries('guests');
+      },
+    }
   );
 
   const history = useHistory();

@@ -1,4 +1,5 @@
 const { json } = require('express');
+const fs = require('fs');
 const express = require('express');
 const Guest = require('../models/guestModel');
 
@@ -72,12 +73,22 @@ router.put('/:id', async (req, res) => {
 // Delete guest
 router.delete('/:id', async (req, res) => {
   try {
+    const guest = await Guest.findById(req.params.id);
+    const path = `${__dirname}/../../client/public${guest.photo_url}`;
     await Guest.findByIdAndDelete(req.params.id);
+
+    fs.unlink(path, (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+    });
+
     setTimeout(() => res.json({ messge: 'Guest deleted.' }), DELAY);
     // res.json({ messge: 'Guest deleted.' });
   } catch (error) {
     res.status(404).json({ message: 'Guest not found.' });
-    console.log(error);
+    console.error(error);
   }
 });
 
