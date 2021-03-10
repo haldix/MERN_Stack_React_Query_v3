@@ -10,25 +10,18 @@ const UpdateGuest = () => {
   const { id } = useParams();
   const { data: userData, error, isLoading, isError } = useGuest(id);
 
-  // mutation logic to be passed to form to be used when updated guest is submitted
-  const {
-    submitFn,
-    isLoading: isMutating,
-    isError: isMutError,
-    error: mutError,
-  } = useUpdateGuest();
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   if (isError) {
     return <div>Error: {error?.message}</div>;
-  }
-  if (isLoading) {
-    return <div>Loading...</div>;
   }
 
   return (
     <>
       <h1>Update Guest</h1>
-      <Form initData={userData} submitFn={submitFn} isLoading={isMutating} />
+      <Form initData={userData} mutFn={useUpdateGuest} />
     </>
   );
 };

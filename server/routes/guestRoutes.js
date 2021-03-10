@@ -50,8 +50,6 @@ router.post('/', async (req, res) => {
 
 // Update guest profile
 router.put('/:id', async (req, res) => {
-  console.log('Put HIT ROUTE', req.params.id);
-
   try {
     const guest = await Guest.findById(req.params.id);
 
@@ -85,8 +83,6 @@ router.delete('/:id', async (req, res) => {
 
 // Upload guest photo
 router.post('/upload', (req, res) => {
-  console.log('REQ UPLOAD FILES', req.files);
-
   if (!req.files) {
     return res.status(400).json({ msg: 'No file uploaded.' });
   }

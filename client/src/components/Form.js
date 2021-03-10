@@ -5,9 +5,17 @@ import useForm from '../hooks/useForm';
 
 const defData = { name: '', email: '', city: '', occupation: '' };
 
-const Form = ({ initData = defData, submitFn, isLoading }) => {
+const Form = ({ initData = defData, mutFn }) => {
+  const { submitFn, isLoading, isError, error } = mutFn();
   const { data, handleSubmit, handleChange } = useForm(initData, submitFn);
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error: {error?.message}</div>;
+  }
   return (
     <form className='guest-form' onSubmit={handleSubmit}>
       <div className='input-group'>
